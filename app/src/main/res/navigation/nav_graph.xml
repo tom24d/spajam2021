@@ -24,5 +24,13 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="jp.ac.doshisha.mikilab.spajamapp.postFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
 </navigation>
