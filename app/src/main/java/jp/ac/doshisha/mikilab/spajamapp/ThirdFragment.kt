@@ -1,23 +1,26 @@
-package com.example.spajam_test
+package jp.ac.doshisha.mikilab.spajamapp
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.spajam_test.databinding.FragmentThirdBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.ktx.Firebase
 import com.google.gson.*
+import jp.ac.doshisha.mikilab.spajamapp.databinding.FragmentThirdBinding
 import java.io.ByteArrayOutputStream
 
 
@@ -27,12 +30,22 @@ class ThirdFragment : Fragment()  {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var functions: FirebaseFunctions
+    private var intentThrower: ActivityResultLauncher<Intent>? = null
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        intentThrower = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it?.resultCode == Activity.RESULT_OK) {
+                it.data?.let { data: Intent ->
+                    val uri = data.toUri(Intent.URI_INTENT_SCHEME)
+                    Log.v(this.tag, uri)
+                }
+            }
+        }
 
         _binding = FragmentThirdBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,7 +61,8 @@ class ThirdFragment : Fragment()  {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "image/*"
         }
-        startActivityForResult(intent, READ_REQUEST_CODE)
+
+        intentThrower?.launch(intent)
     }
     private fun scaleBitmapDown(bitmap: Bitmap, maxDimension: Int): Bitmap {
         val originalWidth = bitmap.width
@@ -157,7 +171,8 @@ class ThirdFragment : Fragment()  {
 
         nextbtn.setOnClickListener {
             selectPhoto()
-        } 
+        }
+
     }
 
     override fun onDestroyView() {
