@@ -1,0 +1,9 @@
+FROM golang
+
+ARG GOPORT
+
+WORKDIR /go/src/github.com/tom24d/spajam2021
+
+COPY . .
+
+CMD ["go", "run", "backend/golang/cmd/main.go"]
