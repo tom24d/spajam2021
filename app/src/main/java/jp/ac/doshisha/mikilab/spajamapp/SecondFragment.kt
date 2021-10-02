@@ -91,8 +91,8 @@ class SecondFragment : Fragment() {
 
         binding.recyclerView.adapter = ImageAdapter(imageList = viewed_images)
         binding.recyclerView.layoutManager =
-            GridLayoutManager(
-                activity, 4
+            StaggeredGridLayoutManager(
+                3, StaggeredGridLayoutManager.VERTICAL
             )
 
         return binding.root
