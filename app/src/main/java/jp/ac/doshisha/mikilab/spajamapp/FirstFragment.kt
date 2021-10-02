@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import jp.ac.doshisha.mikilab.spajamapp.databinding.FragmentFirstBinding
 
 /**
@@ -25,6 +26,59 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
+
+        val dogs = listOf(
+            Image(R.drawable.d1),
+            Image(R.drawable.d2),
+            Image(R.drawable.d3),
+            Image(R.drawable.d4),
+            Image(R.drawable.d5),
+        )
+
+        binding.cardTextView1.text = "dog"
+        binding.cardGallery1.adapter = ImageAdapter(
+            imageList = dogs,
+            imageID = R.id.gallery_image_view,
+            containerID = R.layout.gallery
+        )
+        binding.cardGallery1.layoutManager =
+            GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
+
+        val osakas = listOf(
+            Image(R.drawable.o1),
+            Image(R.drawable.o2),
+            Image(R.drawable.o3),
+            Image(R.drawable.o4),
+            Image(R.drawable.o5),
+        )
+
+        binding.cardTextView2.text = "osaka"
+        binding.cardGallery2.adapter = ImageAdapter(
+            imageList = osakas,
+            imageID = R.id.gallery_image_view,
+            containerID = R.layout.gallery
+        )
+        binding.cardGallery2.layoutManager =
+            GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
+
+
+        val ramens = listOf(
+            Image(R.drawable.r1),
+            Image(R.drawable.r2),
+            Image(R.drawable.r3),
+            Image(R.drawable.r4),
+            Image(R.drawable.r5),
+        )
+
+        binding.cardTextView3.text = "ramen"
+        binding.cardGallery3.adapter = ImageAdapter(
+            imageList = ramens,
+            imageID = R.id.gallery_image_view,
+            containerID = R.layout.gallery
+        )
+        binding.cardGallery3.layoutManager =
+            GridLayoutManager(activity, 1, GridLayoutManager.HORIZONTAL, false)
+
         return binding.root
 
     }
@@ -32,9 +86,26 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.cardTextView1.setOnClickListener {
+            val b = Bundle()
+            b.putString("selected", "dog")
+            arguments = b
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
         }
+
+        binding.cardTextView2.setOnClickListener {
+            val b = Bundle()
+            b.putString("selected", "osaka")
+            arguments = b
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
+        }
+
+        binding.cardTextView3.setOnClickListener {
+            val b = Bundle()
+            b.putString("selected", "ramen")
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
+        }
+
     }
 
     override fun onDestroyView() {
