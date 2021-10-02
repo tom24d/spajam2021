@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_thirdFragment"
+            app:destination="@id/thirdFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -27,6 +30,7 @@
             app:destination="@id/FirstFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="jp.ac.doshisha.mikilab.spajamapp.LoginFragment"

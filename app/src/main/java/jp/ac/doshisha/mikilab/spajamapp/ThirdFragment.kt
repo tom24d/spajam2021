@@ -1,32 +1,25 @@
 package jp.ac.doshisha.mikilab.spajamapp
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.exifinterface.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface.*
 import androidx.fragment.app.Fragment
-import com.google.android.gms.tasks.Task
 import com.google.firebase.functions.FirebaseFunctions
-import com.google.gson.*
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
-import com.google.mlkit.vision.text.TextRecognition
 import jp.ac.doshisha.mikilab.spajamapp.databinding.FragmentThirdBinding
-import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 
 
@@ -39,7 +32,11 @@ class ThirdFragment : Fragment()  {
     private var intentThrower: ActivityResultLauncher<Intent>? = null
     private var _uri: Uri? = null
     private var  image: InputImage? = null
-
+    private var viewed_images_name = mutableListOf<String>()
+    private var viewed_images = mutableListOf<Uri>()
+    private var _labels = mutableListOf<String>()
+    private var osaka_list = mutableListOf<String>()
+    private val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,63 +56,118 @@ class ThirdFragment : Fragment()  {
 //            }
 //        }
         val dogs = listOf(
-            Image(R.drawable.d1),
-            Image(R.drawable.d2),
-            Image(R.drawable.d3),
-            Image(R.drawable.d4),
-            Image(R.drawable.d5),
-            Image(R.drawable.d6),
-            Image(R.drawable.d7),
-            Image(R.drawable.d8),
-            Image(R.drawable.d9),
-            Image(R.drawable.d10),
-            Image(R.drawable.d11),
-            Image(R.drawable.d12),
-            Image(R.drawable.d13),
-            Image(R.drawable.d14),
-            Image(R.drawable.d15),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d1"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d2"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d3"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d4"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d5"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d6"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d7"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d8"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d9"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d10"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d11"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d13"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d14"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/d15"),
         )
+
         val osakas = listOf(
-            Image(R.drawable.o1),
-            Image(R.drawable.o2),
-            Image(R.drawable.o3),
-            Image(R.drawable.o4),
-            Image(R.drawable.o5),
-            Image(R.drawable.o6),
-            Image(R.drawable.o7),
-            Image(R.drawable.o8),
-            Image(R.drawable.o9),
-            Image(R.drawable.o10),
-            Image(R.drawable.o11),
-            Image(R.drawable.o12),
-            Image(R.drawable.o15),
-            Image(R.drawable.o16),
-            Image(R.drawable.o17),
-            Image(R.drawable.o18),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o1"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o2"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o3"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o4"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o5"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o6"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o7"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o8"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o9"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o10"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o11"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o12"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o15"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o16"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o17"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/o18"),
         )
 
         val ramens = listOf(
-            Image(R.drawable.r1),
-            Image(R.drawable.r2),
-            Image(R.drawable.r3),
-            Image(R.drawable.r4),
-            Image(R.drawable.r5),
-            Image(R.drawable.r6),
-            Image(R.drawable.r7),
-            Image(R.drawable.r8),
-            Image(R.drawable.r9),
-            Image(R.drawable.r10),
-            Image(R.drawable.r11),
-            Image(R.drawable.r12),
-            Image(R.drawable.r13),
-            Image(R.drawable.r14),
-            Image(R.drawable.r15),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r1"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r2"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r3"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r4"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r5"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r6"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r7"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r8"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r9"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r10"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r11"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r12"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r13"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r14"),
+            Uri.parse("android.resource://jp.ac.doshisha.mikilab.spajamapp/drawable/r15"),
+        )
+        val dogs_name = listOf(
+            ("d1"),
+            ("d2"),
+            ("d3"),
+            ("d4"),
+            ("d5"),
+            ("d6"),
+            ("d7"),
+            ("d8"),
+            ("d9"),
+            ("d10"),
+            ("d11"),
+            ("d14"),
+            ("d15"),
         )
 
-        val viewed_images = mutableListOf<Image>()
+        val osakas_name = listOf(
+            ("o1"),
+            ("o2"),
+            ("o3"),
+            ("o4"),
+            ("o5"),
+            ("o6"),
+            ("o7"),
+            ("o8"),
+            ("o9"),
+            ("o10"),
+            ("o11"),
+            ("o12"),
+            ("o15"),
+            ("o16"),
+            ("o17"),
+            ("o18"),
+        )
+
+        val ramens_name = listOf(
+            ("r1"),
+            ("r2"),
+            ("r3"),
+            ("r4"),
+            ("r5"),
+            ("r6"),
+            ("r7"),
+            ("r8"),
+            ("r9"),
+            ("r10"),
+            ("r11"),
+            ("r12"),
+            ("r13"),
+            ("r14"),
+            ("r15"),
+        )
+
         viewed_images.addAll(osakas)
         viewed_images.addAll(ramens)
         viewed_images.addAll(dogs)
+        viewed_images_name.addAll(osakas_name)
+        viewed_images_name.addAll(ramens_name)
+        viewed_images_name.addAll(dogs_name)
+        osaka_list.addAll(osakas_name)
 
         _binding = FragmentThirdBinding.inflate(inflater, container, false)
         return binding.root
@@ -155,35 +207,9 @@ class ThirdFragment : Fragment()  {
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false)
     }
 
-    private fun annotateImage(requestJson: String): Task<JsonElement> {
-        return functions
-            .getHttpsCallable("annotateImage")
-            .call(requestJson)
-            .continueWith { task ->
-                // This continuation runs on either success or failure, but if the task
-                // has failed then result will throw an Exception which will be
-                // propagated down.
-                val result = task.result?.data
-                Log.d("TAG", result.toString())
-                JsonParser.parseString(Gson().toJson(result))
-            }
-    }
-
-    private fun addlabel() {
-        val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
-        val contentResolver = requireActivity().contentResolver
-        val source = ImageDecoder.createSource(contentResolver, _uri!!)
-        var bitmap = ImageDecoder.decodeBitmap(source)
-        bitmap = scaleBitmapDown(bitmap, 640)// Convert bitmap to base64 encoded string
-//      エンコードされた文字列に変換
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-
-        val imageBytes: ByteArray = byteArrayOutputStream.toByteArray()
-        val base64encoded = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
-
+    private fun labelUri(){
         try{
-            image = InputImage.fromFilePath(context, _uri)
+            image = com.google.mlkit.vision.common.InputImage.fromFilePath(context, _uri)
         }catch (e: IOException){
             e.printStackTrace()
         }
@@ -195,21 +221,35 @@ class ThirdFragment : Fragment()  {
                 for (label in labels) {
                     val text = label.text
                     resultText.append(text)
-                    resultText.append(" ")
-                    val confidence = label.confidence
-                    val index = label.index
+                    break
                 }
-                val NameText : TextView? = view?.findViewById(R.id.RecText)
+                val NameText : TextView? = view?.findViewById(jp.ac.doshisha.mikilab.spajamapp.R.id.RecText)
                 NameText?.setText(resultText)
-
+                _labels.add(resultText.toString())
             }
             .addOnFailureListener { e ->
                 // Task failed with an exception
                 // ...
                 e.printStackTrace()
             }
+    }
 
+    private fun addlabel() {
+        for(img in viewed_images) {
+            _uri = img
+            labelUri()
+        }
+    }
 
+    private fun getexif(){
+        for(o in osaka_list){
+            var tmp = resources.assets.open(o + ".jpeg")
+            var exifInterface = ExifInterface(tmp)
+            var result1 = exifInterface.getAttribute(TAG_GPS_LONGITUDE)
+            var result2 = exifInterface.getAttribute(TAG_GPS_LATITUDE)
+            Log.d("LATITUDE", result1.toString())
+            Log.d("LATITUDE", result2.toString())
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -219,7 +259,13 @@ class ThirdFragment : Fragment()  {
         val getlmbtn : Button = view.findViewById(R.id.landmarkrecog)
 
         nextbtn.setOnClickListener {
-            selectPhoto()
+//            var index = 0
+//            for(label in _labels){
+//                Log.d("NAME", label)
+//                Log.d("LABEL", viewed_images_name.get(index))
+//                index = index +1
+//            }
+            getexif()
         }
         getlmbtn.setOnClickListener {
             addlabel()
@@ -231,4 +277,8 @@ class ThirdFragment : Fragment()  {
         super.onDestroyView()
         _binding = null
     }
+}
+
+private fun <E> MutableList<E>.addAll(elements: List<Uri>) {
+
 }
