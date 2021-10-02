@@ -86,8 +86,24 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.cardTextView1.setOnClickListener {
+            val b = Bundle()
+            b.putString("selected", "dog")
+            arguments = b
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
+        }
+
         binding.cardTextView2.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            val b = Bundle()
+            b.putString("selected", "osaka")
+            arguments = b
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
+        }
+
+        binding.cardTextView3.setOnClickListener {
+            val b = Bundle()
+            b.putString("selected", "ramen")
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
         }
 
     }

@@ -18,6 +18,7 @@ import jp.ac.doshisha.mikilab.spajamapp.databinding.FragmentSecondBinding
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
+    private var _text: String? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -83,9 +84,20 @@ class SecondFragment : Fragment() {
         )
 
         val viewed_images = mutableListOf<Image>()
-        viewed_images.addAll(osakas)
-//        viewed_images.addAll(ramens)
-//        viewed_images.addAll(dogs)
+        when (arguments?.getString("selected")) {
+            "osaka" -> {
+                viewed_images.addAll(osakas)
+                _text = "Osaka"
+            }
+            "dog" -> {
+                viewed_images.addAll(dogs)
+                _text = "Dog"
+            }
+            "ramen" -> {
+                viewed_images.addAll(ramens)
+                _text = "Ramen"
+            }
+        }
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
@@ -106,8 +118,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textviewSecond.text = "Osaka"
-
+        binding.textviewSecond.text = _text
     }
 
 
