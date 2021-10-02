@@ -90,7 +90,7 @@ class postFragment : Fragment() {
 
         val name: EditText = view.findViewById(R.id.editName)
         val textbox : TextView = view.findViewById(R.id.textView)
-        var sendbtn : Button = view.findViewById(R.id.button2)
+        var sendbtn : Button = view.findViewById(R.id.LoginButton)
         val body:FormBody = FormBody.Builder()
             .add("name", name.toString())
             .build()

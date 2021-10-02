@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/loginFragment">
+
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -24,13 +25,16 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+
     </fragment>
     <fragment
-        android:id="@+id/postFragment"
-        android:name="jp.ac.doshisha.mikilab.spajamapp.postFragment"
-        android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        android:id="@+id/loginFragment"
+        android:name="jp.ac.doshisha.mikilab.spajamapp.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
 </navigation>
