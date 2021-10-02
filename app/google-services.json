@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467533065103",
+    "project_id": "spajam-ba0d5",
+    "storage_bucket": "spajam-ba0d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467533065103:android:7a6cd3478a06b67b08f9fa",
+        "android_client_info": {
+          "package_name": "jp.ac.doshisha.mikilab.spajamapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467533065103-1ifgimsrm1kj3ae4f6n52t60fj0g8fac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlPJpj_6ufv4aQdngafJ1_Wm_zr6DMKAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467533065103-1ifgimsrm1kj3ae4f6n52t60fj0g8fac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
