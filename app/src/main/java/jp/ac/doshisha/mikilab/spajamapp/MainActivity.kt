@@ -10,6 +10,16 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import jp.ac.doshisha.mikilab.spajamapp.databinding.ActivityMainBinding
+import android.content.Intent
+
+
+class SplashScreenActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+        finish()
+    }
+}
 
 class MainActivity : AppCompatActivity() {
 
