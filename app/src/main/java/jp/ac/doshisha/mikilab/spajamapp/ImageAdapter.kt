@@ -6,15 +6,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
-class ImageAdapter(private val imageList: List<Image>): RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+class ImageAdapter(
+    private val imageList: List<Image>,
+    private val imageID: Int,
+    private val containerID: Int
+) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.internal_image_view)
+    class ViewHolder(view: View, imageID: Int) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(imageID)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
-        return ViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(containerID, parent, false)
+        return ViewHolder(view, imageID)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

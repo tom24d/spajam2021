@@ -84,12 +84,16 @@ class SecondFragment : Fragment() {
 
         val viewed_images = mutableListOf<Image>()
         viewed_images.addAll(osakas)
-        viewed_images.addAll(ramens)
-        viewed_images.addAll(dogs)
+//        viewed_images.addAll(ramens)
+//        viewed_images.addAll(dogs)
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
-        binding.recyclerView.adapter = ImageAdapter(imageList = viewed_images)
+        binding.recyclerView.adapter = ImageAdapter(
+            imageList = viewed_images,
+            imageID = R.id.internal_image_view,
+            containerID = R.layout.image_item
+        )
         binding.recyclerView.layoutManager =
             StaggeredGridLayoutManager(
                 3, StaggeredGridLayoutManager.VERTICAL
@@ -102,11 +106,7 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.buttonSecond.setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
-
-        binding.textviewSecond.text = "metadata name"
+        binding.textviewSecond.text = "Osaka"
 
     }
 
