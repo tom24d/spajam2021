@@ -36,7 +36,7 @@ class FirstFragment : Fragment() {
             Image(R.drawable.d5),
         )
 
-        binding.cardTextView1.text = "dog"
+        binding.cardTextView1.text = " Dog "
         binding.cardGallery1.adapter = ImageAdapter(
             imageList = dogs,
             imageID = R.id.gallery_image_view,
@@ -53,7 +53,7 @@ class FirstFragment : Fragment() {
             Image(R.drawable.o5),
         )
 
-        binding.cardTextView2.text = "osaka"
+        binding.cardTextView2.text = " Osaka "
         binding.cardGallery2.adapter = ImageAdapter(
             imageList = osakas,
             imageID = R.id.gallery_image_view,
@@ -71,7 +71,7 @@ class FirstFragment : Fragment() {
             Image(R.drawable.r5),
         )
 
-        binding.cardTextView3.text = "ramen"
+        binding.cardTextView3.text = " Ramen "
         binding.cardGallery3.adapter = ImageAdapter(
             imageList = ramens,
             imageID = R.id.gallery_image_view,
@@ -89,21 +89,21 @@ class FirstFragment : Fragment() {
 
         binding.cardTextView1.setOnClickListener {
             val b = Bundle()
-            b.putString("selected", "dog")
+            b.putString("selected", " Dog ")
             arguments = b
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
         }
 
         binding.cardTextView2.setOnClickListener {
             val b = Bundle()
-            b.putString("selected", "osaka")
+            b.putString("selected", " Osaka ")
             arguments = b
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
         }
 
         binding.cardTextView3.setOnClickListener {
             val b = Bundle()
-            b.putString("selected", "ramen")
+            b.putString("selected", " Ramen ")
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, b)
         }
 
