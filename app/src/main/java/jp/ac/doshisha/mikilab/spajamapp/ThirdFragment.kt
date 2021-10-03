@@ -35,8 +35,16 @@ class ThirdFragment : Fragment()  {
     private var viewed_images_name = mutableListOf<String>()
     private var viewed_images = mutableListOf<Uri>()
     private var _labels = mutableListOf<String>()
+    private var listoflabels = mutableListOf<String>()
     private var osaka_list = mutableListOf<String>()
     private val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
+    private var path_list = mutableListOf<String>()
+    private var dictoflabel = mutableMapOf<String, List<String>>()
+    private var index = 0
+    private var dog_img_list = mutableListOf<String>()
+    private var ramen_img_list = mutableListOf<String>()
+    private var osaka_img_list = mutableListOf<String>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -217,15 +225,29 @@ class ThirdFragment : Fragment()  {
         labeler.process(image)
             .addOnSuccessListener() { labels ->
                 // Task completed successfully
-                val resultText = StringBuilder()
+                var resultText : String = ""
                 for (label in labels) {
-                    val text = label.text
-                    resultText.append(text)
+                    resultText = label.text
                     break
                 }
                 val NameText : TextView? = view?.findViewById(jp.ac.doshisha.mikilab.spajamapp.R.id.RecText)
                 NameText?.setText(resultText)
-                _labels.add(resultText.toString())
+                _labels.add(resultText)
+
+
+                if(resultText == "Dog"){
+                    var imagepath ="R.drawable"+viewed_images_name.get(index)
+                    dog_img_list.add(imagepath)
+                }
+                else if(resultText == "Food"){
+                    var imagepath ="R.drawable"+viewed_images_name.get(index)
+                    ramen_img_list.add(imagepath)
+                }
+                else{
+                    var imagepath ="R.drawable"+viewed_images_name.get(index)
+                    osaka_img_list.add(imagepath)
+                }
+                index = index +1
             }
             .addOnFailureListener { e ->
                 // Task failed with an exception
@@ -260,11 +282,24 @@ class ThirdFragment : Fragment()  {
 
         nextbtn.setOnClickListener {
 //            var index = 0
+//            var imagepath = ""
+
 //            for(label in _labels){
 //                Log.d("NAME", label)
 //                Log.d("LABEL", viewed_images_name.get(index))
+//                path_list.add(imagepath)
 //                index = index +1
+//
 //            }
+            Log.d("NAME", "Dog")
+            Log.d("IMG", dog_img_list.toString())
+
+            Log.d("NAME", "Ramen")
+            Log.d("IMG", ramen_img_list.toString())
+
+            Log.d("NAME", "Osaka")
+            Log.d("IMG", osaka_img_list.toString())
+
             getexif()
         }
         getlmbtn.setOnClickListener {
