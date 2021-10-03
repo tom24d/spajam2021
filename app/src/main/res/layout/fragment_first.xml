@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FEF6F0"
+    android:backgroundTint="#FEF6F0"
     tools:context=".FirstFragment">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FEF6F0"
         android:paddingTop="10dp"
         app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <LinearLayout
@@ -30,19 +31,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FEF6F0"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/card_text_view_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"
-                        />
+                        android:textSize="25sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/card_gallery_1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="#FEF6F0" />
 
                 </LinearLayout>
 
@@ -56,18 +58,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FEF6F0"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/card_text_view_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"/>
+                        android:textSize="25sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/card_gallery_2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="#FEF6F0" />
 
                 </LinearLayout>
 
@@ -81,18 +85,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#FEF6F0"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/card_text_view_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"/>
+                        android:textSize="25sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/card_gallery_3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="#FEF6F0" />
 
                 </LinearLayout>
 
