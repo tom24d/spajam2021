@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +13,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
+import androidx.appcompat.app.AppCompatActivity
 import androidx.exifinterface.media.ExifInterface
 import androidx.exifinterface.media.ExifInterface.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeling
@@ -182,6 +186,7 @@ class ThirdFragment : Fragment()  {
 
     }
 
+
     companion object {
         private const val READ_REQUEST_CODE: Int = 42
     }
@@ -261,6 +266,7 @@ class ThirdFragment : Fragment()  {
             _uri = img
             labelUri()
         }
+
     }
 
     private fun getexif(){
@@ -273,14 +279,23 @@ class ThirdFragment : Fragment()  {
             Log.d("LATITUDE", result2.toString())
         }
     }
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val nextbtn : Button = view.findViewById(R.id.button_select)
-        val getlmbtn : Button = view.findViewById(R.id.landmarkrecog)
+//        val nextbtn : Button = view.findViewById(R.id.button_select)
+//        val getlmbtn : Button = view.findViewById(R.id.landmarkrecog)
 
-        nextbtn.setOnClickListener {
+//        nextbtn.setOnClickListener {
 //            var index = 0
 //            var imagepath = ""
 
@@ -291,21 +306,26 @@ class ThirdFragment : Fragment()  {
 //                index = index +1
 //
 //            }
-            Log.d("NAME", "Dog")
-            Log.d("IMG", dog_img_list.toString())
-
-            Log.d("NAME", "Ramen")
-            Log.d("IMG", ramen_img_list.toString())
-
-            Log.d("NAME", "Osaka")
-            Log.d("IMG", osaka_img_list.toString())
-
-            getexif()
-        }
-        getlmbtn.setOnClickListener {
-            addlabel()
-        }
-
+//            Log.d("NAME", "Dog")
+//            Log.d("IMG", dog_img_list.toString())
+//
+//            Log.d("NAME", "Ramen")
+//            Log.d("IMG", ramen_img_list.toString())
+//
+//            Log.d("NAME", "Osaka")
+//            Log.d("IMG", osaka_img_list.toString())
+//
+//            getexif()
+//        }
+//        getlmbtn.setOnClickListener {
+//            addlabel()
+//        }
+//        addlabel()
+//        Thread.sleep(3000)
+//
+        Handler(Looper.getMainLooper()).postDelayed( {
+            findNavController().navigate(R.id.action_thirdFragment_to_FirstFragment)
+        },3600)
     }
 
     override fun onDestroyView() {

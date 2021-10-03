@@ -4,66 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FEF6F0"
+    android:backgroundTint="#FEF6F0"
     tools:context=".ThirdFragment">
 
     <ImageView
         android:id="@+id/imgView"
         android:layout_width="346dp"
         android:layout_height="341dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="92dp"
+        android:src="@drawable/loadinglogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <Button
-        android:id="@+id/button_select"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:text="画像選択"
-        app:backgroundTint="@null"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgView" />
-
     <TextView
         android:id="@+id/RecText"
         android:layout_width="192dp"
         android:layout_height="42dp"
-        android:layout_marginBottom="20dp"
-        android:text="TextView"
+        android:layout_marginTop="940dp"
+        android:text="Loading ..."
         android:textAlignment="center"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/imgView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/landmarkrecog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginBottom="32dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_select"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintTop_toTopOf="@+id/thirdImageView" />
 
     <ImageView
         android:id="@+id/thirdImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/d1"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"
-        android:visibility="invisible"/>
+        android:src="@drawable/loadinglogo"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imgView"
+        tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
