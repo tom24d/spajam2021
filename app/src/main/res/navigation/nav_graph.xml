@@ -27,6 +27,7 @@
             app:destination="@id/FirstFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="jp.ac.doshisha.mikilab.spajamapp.LoginFragment"
@@ -34,6 +35,15 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_FirstFragment"
+            app:destination="@id/thirdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="jp.ac.doshisha.mikilab.spajamapp.ThirdFragment"
+        android:label="fragment_third"
+        tools:layout="@layout/fragment_third" >
+        <action
+            android:id="@+id/action_thirdFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 

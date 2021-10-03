@@ -41,8 +41,6 @@ class SecondFragment : Fragment() {
             Image(R.drawable.d9),
             Image(R.drawable.d10),
             Image(R.drawable.d11),
-            Image(R.drawable.d12),
-            Image(R.drawable.d13),
             Image(R.drawable.d14),
             Image(R.drawable.d15),
         )
@@ -76,7 +74,6 @@ class SecondFragment : Fragment() {
             Image(R.drawable.r8),
             Image(R.drawable.r9),
             Image(R.drawable.r10),
-            Image(R.drawable.r11),
             Image(R.drawable.r12),
             Image(R.drawable.r13),
             Image(R.drawable.r14),
