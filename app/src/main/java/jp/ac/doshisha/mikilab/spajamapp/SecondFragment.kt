@@ -121,7 +121,6 @@ class SecondFragment : Fragment() {
         binding.textviewSecond.text = _text
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
