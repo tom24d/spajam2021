@@ -82,17 +82,17 @@ class SecondFragment : Fragment() {
 
         val viewed_images = mutableListOf<Image>()
         when (arguments?.getString("selected")) {
-            "osaka" -> {
+            " Osaka " -> {
                 viewed_images.addAll(osakas)
-                _text = "Osaka"
+                _text = " Osaka "
             }
-            "dog" -> {
+            " Dog " -> {
                 viewed_images.addAll(dogs)
-                _text = "Dog"
+                _text = " Dog "
             }
-            "ramen" -> {
+            " Ramen " -> {
                 viewed_images.addAll(ramens)
-                _text = "Ramen"
+                _text = " Ramen "
             }
         }
 
